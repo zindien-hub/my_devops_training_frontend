@@ -1,0 +1,51 @@
+<div class="card m-3">
+  <h5 class="card-header">Login Form</h5>
+  <div class="card-body">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Champ login -->
+      <div class="form-group">
+        <label>Login</label>
+        <input
+          type="text"
+          formControlName="login"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && form['login'].errors }"
+        />
+        <div *ngIf="submitted && form['login'].errors" class="invalid-feedback">
+          <div *ngIf="form['login'].errors?.['required']">Login is required</div>
+        </div>
+      </div>
+
+      <!-- Champ password -->
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="password"
+          formControlName="password"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && form['password'].errors }"
+        />
+        <div *ngIf="submitted && form['password'].errors" class="invalid-feedback">
+          <div *ngIf="form['password'].errors?.['required']">Password is required</div>
+        </div>
+      </div>
+
+      <!-- Bouton -->
+      <div class="text-center">
+        <button class="btn btn-primary mr-1" type="submit" [disabled]="loading">
+          Se connecter
+        </button>
+      </div>
+    </form>
+
+    <!-- Affichage des erreurs serveur -->
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Affichage du chargement -->
+    <div *ngIf="loading" class="text-center mt-3">
+      Connexion en cours...
+    </div>
+  </div>
+</div>
