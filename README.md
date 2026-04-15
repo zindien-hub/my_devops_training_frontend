@@ -1,59 +1,70 @@
 # EtudiantFrontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.16.
+Front-end Angular (v19) pour l'exercice d'authentification.
 
-## Development server
+## Fonctionnalites implementees
 
-To start a local development server, run:
+- Ecran `Login` avec formulaire (login + mot de passe obligatoires).
+- Ecran `Register` existant conserve.
+- Navigation simple avec boutons `Login` et `Register`.
+- Route par defaut `/` redirigee vers `/login`.
+- Appel front -> back sur `/api/login` et `/api/register`.
+- Gestion des etats cote login: chargement, erreur, succes (token recu).
 
-```bash
-ng serve
-```
+## Routes disponibles
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- `/login`: ecran de connexion.
+- `/register`: ecran d'inscription.
+- `/`: redirection vers `/login`.
 
-## Code scaffolding
+## Prerequis
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Node.js + npm
+- Backend demarre sur `http://localhost:8080`
 
-```bash
-ng generate component component-name
-```
+Le proxy Angular est configure pour rediriger `/api/*` vers `http://localhost:8080` via `proxy.conf.json`.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Lancer le projet
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Installer les dependances:
 
 ```bash
-ng build
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Jest](https://jestjs.io/) test runner, use the following command:
+Demarrer le front en developpement:
 
 ```bash
-jest
+npm start
 ```
 
-## Running end-to-end tests
+Puis ouvrir:
 
-For end-to-end (e2e) testing, run:
+```text
+http://localhost:4200
+```
+
+## Build
 
 ```bash
-ng e2e
+npm run build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Tests
 
-## Additional Resources
+Executer les tests unitaires:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm test
+```
+
+Mode watch:
+
+```bash
+npm run test:watch
+```
+
+## Notes techniques
+
+- Le backend retourne actuellement le token JWT en texte brut sur `/api/login`.
+- Le front adapte cette reponse pour exposer un objet `{ token: string }` dans le service.
