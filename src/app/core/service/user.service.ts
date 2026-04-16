@@ -3,7 +3,6 @@ import { Register } from '../models/Register';
 import { Login, LoginResponse } from '../models/Login';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +15,6 @@ export class UserService {
   }
 
   login(user: Login): Observable<LoginResponse> {
-    return this.httpClient.post('/api/login', user, { responseType: 'text' })
-      .pipe(
-        map((token: string) => ({ token }))
-      );
+    return this.httpClient.post<LoginResponse>('/api/login', user);
   }
 }
