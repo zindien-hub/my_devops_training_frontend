@@ -66,5 +66,5 @@ npm run test:watch
 
 ## Notes techniques
 
-- Le backend retourne actuellement le token JWT en texte brut sur `/api/login`.
-- Le front adapte cette reponse pour exposer un objet `{ token: string }` dans le service.
+- Le backend retourne le token JWT en JSON sur `/api/login`.
+- Format attendu: `{ "token": "xxxxx" }`.
