@@ -1,0 +1,32 @@
+<h1>{{ isEditMode ? 'Edit student' : 'Add a new student' }}</h1>
+
+<p *ngIf="loading">Loading...</p>
+<p *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="firstName">First name</label>
+    <input id="firstName" type="text" formControlName="firstName" />
+    <div *ngIf="submitted && form['firstName'].errors">
+      First name is required
+    </div>
+  </div>
+
+  <br />
+
+  <div>
+    <label for="lastName">Last name</label>
+    <input id="lastName" type="text" formControlName="lastName" />
+    <div *ngIf="submitted && form['lastName'].errors">
+      Last name is required
+    </div>
+  </div>
+
+  <br />
+
+  <button type="submit">
+    {{ isEditMode ? 'Update student' : 'Create student' }}
+  </button>
+
+  <a routerLink="/students">Cancel</a>
+</form>
