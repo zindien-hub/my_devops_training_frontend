@@ -1,0 +1,37 @@
+<h1>Students</h1>
+
+<p *ngIf="loading">Loading students...</p>
+<p *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<p>
+  <a routerLink="/students/new">Add a new student</a>
+</p>
+
+<table *ngIf="!loading && students.length > 0" border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of students">
+      <td>{{ student.id }}</td>
+      <td>{{ student.firstName }}</td>
+      <td>{{ student.lastName }}</td>
+      <td>
+        <a [routerLink]="['/students', student.id]">View</a>
+        |
+        <a [routerLink]="['/students', student.id, 'edit']">Edit</a>
+        |
+        <button type="button" (click)="deleteStudent(student.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="!loading && students.length === 0">
+  No students found.
+</p>

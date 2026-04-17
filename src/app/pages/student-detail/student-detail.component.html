@@ -1,0 +1,18 @@
+<h1>Student detail</h1>
+
+<p *ngIf="loading">Loading student...</p>
+<p *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<div *ngIf="!loading && student">
+  <p><strong>ID:</strong> {{ student.id }}</p>
+  <p><strong>First name:</strong> {{ student.firstName }}</p>
+  <p><strong>Last name:</strong> {{ student.lastName }}</p>
+  <p><strong>Created at:</strong> {{ student.createdAt }}</p>
+  <p><strong>Updated at:</strong> {{ student.updatedAt }}</p>
+
+  <p>
+    <a routerLink="/students">Back to list</a>
+    |
+    <a [routerLink]="['/students', student.id, 'edit']">Edit</a>
+  </p>
+</div>
