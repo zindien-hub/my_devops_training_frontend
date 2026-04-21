@@ -96,6 +96,7 @@ Couverture de tests
 Jest
 
 La couverture front mesurée avec Jest est supérieure à 80 % :
+
 - Statements : 92.27 %
 - Branches : 66.66 %
 - Functions : 80.85 %
