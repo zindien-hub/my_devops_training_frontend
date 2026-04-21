@@ -69,7 +69,12 @@ npm run build
 
 ## Tests
 
-Executer les tests unitaires:
+Le projet contient 2 types de tests:
+
+- Tests unitaires (Jest) pour les composants, services, guard et interceptor.
+- Tests end-to-end (Cypress) pour les parcours utilisateur principaux.
+
+### Lancer les tests unitaires (Jest)
 
 ```bash
 npm test
@@ -80,6 +85,52 @@ Mode watch:
 ```bash
 npm run test:watch
 ```
+
+Rapport de couverture:
+
+```bash
+npm test -- --coverage --watch=false --coverageReporters=text-summary
+```
+
+Couverture de tests
+Jest
+
+La couverture front mesurée avec Jest est supérieure à 80 % :
+Statements : 92.27 %
+Branches : 66.66 %
+Functions : 80.85 %
+Lines : 91.63 %
+
+### Lancer les tests E2E (Cypress)
+
+Mode interface:
+
+```bash
+npm run cy:open
+```
+
+Mode headless:
+
+```bash
+npm run cy:run
+```
+
+### Scenarios testes
+
+Unitaires:
+
+- Authentification: `AuthService`, `AuthGuard`, `AuthInterceptor`.
+- Gestion des etudiants: `StudentService`, `UserService`.
+- Composants/pages: `AppComponent`, `Login`, `Register`, `StudentsList`, `StudentDetail`, `StudentForm`.
+
+E2E:
+
+- Connexion utilisateur.
+- Inscription utilisateur.
+- Consultation de la liste des etudiants.
+- Consultation du detail d'un etudiant.
+- Creation/modification d'un etudiant.
+- Suppression d'un etudiant.
 
 ## Notes techniques
 
