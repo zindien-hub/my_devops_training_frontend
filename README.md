@@ -115,6 +115,15 @@ Mode headless:
 npm run cy:run
 ```
 
+Couverture de tests E2E 
+
+Tous les tests E2E passent avec succès :
+
+- 6 fichiers de test exécutés
+- 7 scénarios validés
+- 0 échec
+100 % de réussite
+
 ### Scenarios testes
 
 Unitaires:
