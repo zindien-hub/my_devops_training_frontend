@@ -5,34 +5,38 @@ Front-end Angular (v19) pour l'exercice d'authentification.
 ## Fonctionnalites implementees
 
 - Ecran `Login` avec formulaire (login + mot de passe obligatoires).
-- Ecran `Register` existant conserve.
+- Ecran `Register`.
 - Navigation simple avec boutons `Login` et `Register`.
 - Route par defaut `/` redirigee vers `/login`.
 - Appel front -> back sur `/api/login` et `/api/register`.
-- Gestion des etats cote login: chargement, erreur, succes (token recu).
-- Stockage du token JWT dans le `localStorage`
-- Protection des routes étudiants avec un `Guard`
-- Ajout automatique du token JWT dans les requêtes HTTP via un `Interceptor`
+- Gestion des etats cote login : chargement, erreur, succes (token recu).
+- Gestion des etats cote register : succes et erreur.
+- Stockage du token JWT dans le `localStorage`.
+- Protection des routes étudiants avec un `Guard`.
+- Ajout automatique du token JWT dans les requêtes HTTP via un `Interceptor`.
 
 ### Gestion des étudiants
-- Consulter la liste des étudiants
-- Consulter le détail d’un étudiant
-- Ajouter un nouvel étudiant
-- Modifier un étudiant
-- Supprimer un étudiant
+
+- Consulter la liste des étudiants.
+- Consulter le détail d’un étudiant.
+- Ajouter un nouvel étudiant.
+- Modifier un étudiant.
+- Supprimer un étudiant.
 
 ## Routes disponibles
 
 ### Routes publiques
-- `/login`: ecran de connexion.
-- `/register`: ecran d'inscription.
-- `/`: redirection vers `/login`.
+
+- `/login` : ecran de connexion.
+- `/register` : ecran d'inscription.
+- `/` : redirection vers `/login`.
 
 ### Routes protégées
-- `/students` : liste des étudiants
-- `/students/new` : création d’un étudiant
-- `/students/:id` : détail d’un étudiant
-- `/students/:id/edit` : modification d’un étudiant
+
+- `/students` : liste des étudiants.
+- `/students/new` : création d’un étudiant.
+- `/students/:id` : détail d’un étudiant.
+- `/students/:id/edit` : modification d’un étudiant.
 
 ## Prerequis
 
@@ -41,9 +45,9 @@ Front-end Angular (v19) pour l'exercice d'authentification.
 
 Le proxy Angular est configure pour rediriger `/api/*` vers `http://localhost:8080` via `proxy.conf.json`.
 
-## Lancer le projet
+## Installation
 
-Installer les dependances:
+Installer les dependances :
 
 ```bash
 npm install
@@ -97,10 +101,10 @@ Jest
 
 La couverture front mesurée avec Jest est supérieure à 80 % :
 
-- Statements : 92.27 %
-- Branches : 66.66 %
-- Functions : 80.85 %
-- Lines : 91.63 %
+- Statements : 93.12 %
+- Branches : 82.35 %
+- Functions : 83.33 %
+- Lines : 92.56 %
 
 ### Lancer les tests E2E (Cypress)
 
@@ -131,6 +135,7 @@ Tous les tests E2E passent avec succès :
 Unitaires:
 
 - Authentification: `AuthService`, `AuthGuard`, `AuthInterceptor`.
+- Gestion des utilisateurs : `UserService`
 - Gestion des etudiants: `StudentService`, `UserService`.
 - Composants/pages: `AppComponent`, `Login`, `Register`, `StudentsList`, `StudentDetail`, `StudentForm`.
 
