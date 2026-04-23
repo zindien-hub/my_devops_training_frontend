@@ -19,8 +19,10 @@ export class RegisterComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
+
   registerForm: FormGroup = new FormGroup({});
   submitted: boolean = false;
+  errorMessage: string = '';
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group(
@@ -39,23 +41,31 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
+
     if (this.registerForm.invalid) {
       return;
     }
+
+    this.errorMessage = '';
+
     const registerUser: Register = {
       firstName: this.registerForm.get('firstName')?.value,
       lastName: this.registerForm.get('lastName')?.value,
       login: this.registerForm.get('login')?.value,
       password: this.registerForm.get('password')?.value
     };
+
     this.userService.register(registerUser)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(
-      () => {
-        alert('SUCCESS!! :-)');
-        this.router.navigate(['/login']);
-      },
-    );
+      .subscribe({
+        next: () => {
+          alert('SUCCESS!! :-)');
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          this.errorMessage = err.error?.message || 'Erreur lors de l’inscription';
+        }
+      });
   }
 
   onReset(): void {

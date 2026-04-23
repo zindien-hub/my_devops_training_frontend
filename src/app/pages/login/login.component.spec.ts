@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { LoginComponent } from './login.component';
@@ -80,5 +80,44 @@ describe('LoginComponent', () => {
 
     // Vérifie la redirection après connexion réussie
     expect(routerMock.navigate).toHaveBeenCalledWith(['/students']);
+  });
+
+  it('should set errorMessage when login fails', () => {
+    userServiceMock.login.mockReturnValue(
+      throwError(() => ({
+        error: { message: 'Invalid credentials' }
+      }))
+    );
+
+    component.loginForm.setValue({
+      login: 'john.doe',
+      password: 'wrong-password'
+    });
+
+    component.onSubmit();
+
+    // Vérifie que le message d'erreur est bien renseigné
+    expect(component.errorMessage).toBe('Invalid credentials');
+
+    // Vérifie qu'aucun token n'est sauvegardé en cas d'échec
+    expect(authServiceMock.saveToken).not.toHaveBeenCalled();
+
+    // Vérifie qu'il n'y a pas de redirection en cas d'échec
+    expect(routerMock.navigate).not.toHaveBeenCalled();
+  });
+
+  it('should set default errorMessage when login fails without backend message', () => {
+    userServiceMock.login.mockReturnValue(
+      throwError(() => ({}))
+    );
+
+    component.loginForm.setValue({
+      login: 'john.doe',
+      password: 'wrong-password'
+    });
+
+    component.onSubmit();
+
+    expect(component.errorMessage).toBe('Erreur lors de la connexion');
   });
 });
