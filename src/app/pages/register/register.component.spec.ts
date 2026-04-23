@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { RegisterComponent } from './register.component';
@@ -96,5 +96,45 @@ describe('RegisterComponent', () => {
       login: null,
       password: null
     });
+  });
+
+  it('should set errorMessage when register fails', () => {
+    userServiceMock.register.mockReturnValue(
+      throwError(() => ({
+        error: { message: 'User already exists' }
+      }))
+    );
+
+    component.registerForm.setValue({
+      firstName: 'John',
+      lastName: 'Doe',
+      login: 'john.doe',
+      password: 'password123'
+    });
+
+    component.onSubmit();
+
+    // Vérifie que le message d'erreur est bien renseigné
+    expect(component.errorMessage).toBe('User already exists');
+
+    // Vérifie qu'il n'y a pas de redirection en cas d'échec
+    expect(routerMock.navigate).not.toHaveBeenCalled();
+  });
+
+  it('should set default errorMessage when register fails without backend message', () => {
+    userServiceMock.register.mockReturnValue(
+      throwError(() => ({}))
+    );
+
+    component.registerForm.setValue({
+      firstName: 'John',
+      lastName: 'Doe',
+      login: 'john.doe',
+      password: 'password123'
+    });
+
+    component.onSubmit();
+
+    expect(component.errorMessage).toBe('Erreur lors de l’inscription');
   });
 });
